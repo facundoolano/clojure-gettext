@@ -1,8 +1,12 @@
 (ns gettext.scan)
 
+(defn- is-clj
+  [file]
+  (#{"clj" "cljc" "cljs"} (last (clojure.string/split (.getName file) #"\."))))
+
 (defn- get-files
   [dir]
-  (remove #(.isDirectory %) (file-seq (clojure.java.io/file dir))))
+  (filter is-clj (file-seq (clojure.java.io/file dir))))
 
 (defn- extract-text
   [expressions]
@@ -15,11 +19,12 @@
 (defn- zipzip [s] (zipmap s s))
 
 (defn scan-files
-  "Utility function. Walk the given directory and for every clj file extract
-  the strings that appear enclosed by _, p_, gettext or pgettext."
-  [dir]
-  (->>
-    (get-files dir)
-    (mapcat (comp extract-text read-string #(str "(" % ")") slurp))
-    zipzip
-    (into (sorted-map))))
+  "Walk the given directory and for every clj file extract the strings that
+  appear enclosed by _, p_, gettext or pgettext."
+  ([] (scan-files (.getAbsolutePath (java.io.File. ""))))
+  ([dir]
+   (->>
+     (get-files dir)
+     (mapcat (comp extract-text read-string #(str "(" % ")") slurp))
+     zipzip
+     (into (sorted-map)))))
