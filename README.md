@@ -108,6 +108,22 @@ logic from app specific logic:
 ```
 
 ### Scan files for translatable strings
+The function `gettext.scan/scan-files` takes a clojure file or directory and
+extracts all strings that are passed to `gettext` in any of its flavors. The
+strings are packed in a map to facilitate their translation:
+
+```clojure
+(require '[gettext.scan :refer [scan-files]])
+
+(scan-files "/Users/facundo/dev/advenjure/src/advenjure")
+; Returns
+; {"%s was closed." "%s was closed.",
+;  "%s was empty." "%s was empty.",
+;  "%s what?" "%s what?",
+;  "Bye!" "Bye!",
+;  "Closed." "Closed."
+;  ...}
+```
 
 ## License
 

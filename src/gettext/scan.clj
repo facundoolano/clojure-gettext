@@ -1,12 +1,12 @@
 (ns gettext.scan)
 
-(defn- is-clj
+(defn- clj?
   [file]
   (#{"clj" "cljc" "cljs"} (last (clojure.string/split (.getName file) #"\."))))
 
 (defn- get-files
   [dir]
-  (filter is-clj (file-seq (clojure.java.io/file dir))))
+  (filter clj? (file-seq (clojure.java.io/file dir))))
 
 (defn- extract-text
   [expressions]
