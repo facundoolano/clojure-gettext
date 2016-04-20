@@ -1,11 +1,11 @@
 (ns gettext.core
-  (:require [cfg.current :refer [project]]
+  (:require [carica.core :refer [config]]
             [clojure.test :refer [function?]]))
 
 ; Load text source from project.clj
-(if (:gettext-source project)
-  (require [(symbol (namespace (:gettext-source project)))]))
-(def ^:dynamic *text-source* (eval (:gettext-source project)))
+(if (config :gettext-source)
+  (require [(symbol (namespace (config :gettext-source)))]))
+(def ^:dynamic *text-source* (eval (config :gettext-source)))
 
 (defn gettext
   "Look up the given key in the current text source dictionary.

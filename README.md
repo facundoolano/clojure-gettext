@@ -41,13 +41,11 @@ to a specific translation:
                  "Hello, %s" "Hola, %s"})
 ```
 
-The dictionary to use for translations can be set statically with the
-`:gettext-source` keyword in the `project.clj`:
+The dictionary to use for translations can be set statically in the `resources/config.clj` file.
+The file should consist of a map with the `:gettext-source`:
 
 ```clojure
-(defproject myprogram "0.1.0-SNAPSHOT"
-  ...
-  :gettext-source myprogram.translations.spanish/dictionary)
+{:gettext-source 'myprogram.translations.spanish/dictionary}
 ```
 
 Alternatively, the translations dictionary can be bound dynamically using
