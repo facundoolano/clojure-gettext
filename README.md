@@ -7,7 +7,7 @@ Utilities to write multilingual Clojure programs, vaguely inspired by [GNU gette
 To install gettext, add the following to your project map as a dependency:
 
 ```clojure
-[gettext "0.1.0"]
+[gettext "0.1.1"]
 ```
 
 ## Usage
